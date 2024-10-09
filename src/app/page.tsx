@@ -1,7 +1,66 @@
 /** @format */
 "use client";
+import PageTitle from "@/components/PageTitle";
 import Image from "next/image";
+import Card, { CardContent, CardProps } from "@/components/Card";
+import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import SalesCard, { SalesProps } from "@/components/SalesCard";
 import React, { useEffect, useState } from "react";
+import BarChart from "@/components/BarChart";
+const cardData: CardProps[] = [
+  {
+    label: "Total Revenue",
+    amount: "$45,231.89",
+    discription: "+20.1% from last month",
+    icon: DollarSign,
+  },
+  {
+    label: "Subscription",
+    amount: "+2350",
+    discription: "+180.1% from last month",
+    icon: Users,
+  },
+  {
+    label: "Sales",
+    amount: "+12,234",
+    discription: "+19% from last month",
+    icon: CreditCard,
+  },
+  {
+    label: "Active Mow",
+    amount: "+573",
+    discription: "+201 from last month",
+    icon: Activity,
+  },
+];
+
+const userSalesData: SalesProps[] = [
+  {
+    name: "Olivia Martin",
+    email: "olivia.martin@email.com",
+    salesAmount: "+$1,999.00",
+  },
+  {
+    name: "Jackson Lee",
+    email: "isabella.nguyen@email.com",
+    salesAmount: "+$1,999.00",
+  },
+  {
+    name: "Isabella Nguyen",
+    email: "isabella.nguyen@email.com",
+    salesAmount: "+$39.00",
+  },
+  {
+    name: "William Kim",
+    email: "will@email.com",
+    salesAmount: "+$299.00",
+  },
+  {
+    name: "Sofia Davis",
+    email: "sofia.davis@email.com",
+    salesAmount: "+$39.00",
+  },
+];
 
 export default function Home() {
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
@@ -31,12 +90,48 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col gap-5 w-full">
+      <PageTitle title="Dashboard" />
       <ul>
         {users.map((user) => (
           <li key={user?.id}>{user?.name}</li>
         ))}
+        <div>3 dong dữ liệu lấy từ db thông qua ORM drisma</div>
       </ul>
+      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+        {cardData.map((data, index) => (
+          <Card
+            key={index}
+            amount={data.amount}
+            discription={data.discription}
+            icon={data.icon}
+            label={data.label}
+          />
+        ))}
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+        <CardContent>
+          <p className="p-4 font-semibold">Overview</p>
+          <BarChart />
+        </CardContent>
+        <CardContent className="flex justify-between gap-4">
+          <section>
+            <p>Recent Sales</p>
+            <p className="text-sm text-gray-400">
+              You made 265 sales this month.
+            </p>
+          </section>
+          {userSalesData.map((data, index) => (
+            <SalesCard
+              key={index}
+              email={data.email}
+              name={data.name}
+              salesAmount={data.salesAmount}
+            />
+          ))}
+        </CardContent>
+      </section>
 
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
