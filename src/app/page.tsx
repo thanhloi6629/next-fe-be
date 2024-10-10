@@ -7,6 +7,13 @@ import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 import SalesCard, { SalesProps } from "@/components/SalesCard";
 import React, { useEffect, useState } from "react";
 import BarChart from "@/components/BarChart";
+import {
+  AccordionContent,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import AccordionCustom from "@/components/Accordian";
 const cardData: CardProps[] = [
   {
     label: "Total Revenue",
@@ -61,6 +68,11 @@ const userSalesData: SalesProps[] = [
     salesAmount: "+$39.00",
   },
 ];
+const mang = [
+  { lable: "Tiêu đề 1", content: "Nội dung1" },
+  { lable: "Tiêu đề 2", content: "Nội dung2" },
+  { lable: "Tiêu đề 3", content: "Nội dung3" },
+];
 
 export default function Home() {
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
@@ -98,6 +110,7 @@ export default function Home() {
         ))}
         <div>3 dong dữ liệu lấy từ db thông qua ORM drisma</div>
       </ul>
+      <AccordionCustom list={mang} />
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
         {cardData.map((data, index) => (
           <Card
